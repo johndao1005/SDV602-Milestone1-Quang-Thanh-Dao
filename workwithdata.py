@@ -15,8 +15,13 @@ ws = wb.active
 name = ws['A2'].value
 color = ws['B3'].value
 column_a = ws['A']
+row_1 = ws['1']
+range = ws['A2':'A10']
+range2 = ws['A3':'A4']
+#print(range)
 
-for cell in column_a:
-    print(f'{cell.value}\n')
+for cell in range:
+    for x in cell:
+        print(x.value)
 #print something from spreadsheet
-print(f'{name} {color}')
+#print(f'{name} {color}')
