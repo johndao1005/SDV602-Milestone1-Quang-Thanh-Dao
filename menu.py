@@ -1,6 +1,5 @@
 from tkinter import *
-import tkinter as tk
-# from PIL import ImageTk,Image
+from PIL import ImageTk,Image
 # import numpy as np
 # import matplotlib.pyplot as plt
 from tkinter.messagebox import showinfo
@@ -13,24 +12,13 @@ def createPopup(title, message):
         title (string): Name of the message to display
         message (string): Content of the message such as what is the error or what action is completely
     """
+    #other option showerror(title, message) 
+    #showwarrning(title, message)
     showinfo(
                 title = title,
                 message =message
             )
-
-# create function to create button faster
-def createButton(windowName,buttonName,buttonFunction):
-    """Short cut for creating button by only specifiy the charactistics
-
-    Args:
-        windowName (variable): the name of the window the button will apply to example root, menu, signup
-        buttonName (string): Text display inside the button which will need to explain the function of the buttonName
-        buttonFunction (function name): function will be trigger when click the button
-    """
-    button = Button(windowName,text=buttonName,
-                    #image=download_icon, # can be used to add picture
-                    #compound = tk.Left # can be used to make the text and picture inline
-                    command=lambda:buttonFunction()).pack(pady=20)
+    
 
 #create function to make window faster
 def createWindow(windowName,windowLabel,windowsize):
@@ -56,9 +44,9 @@ def createWindow(windowName,windowLabel,windowsize):
     # image_label.pack()
     #
     
-    
 #ANCHOR
 def login():
+    root = Tk()
     """
     Starting the login windowCheck if user and password is match and correct
     """
@@ -67,13 +55,9 @@ def login():
     # root.iconbitmap()
     # label = Label()
     # root.geometry("400x200")
-    # def graph():
-    #     house_price = np.random.normal(2000,25000, 5000)
-    #     plt.hist(house_price,50)
-    #     plt.show()
-    
-    password = tk.StringVar()
-    username = tk.StringVar()
+
+    password = StringVar()
+    username = StringVar()
     username_entry = Entry(root,textvariable= username).pack(pady=10)
     password_entry = Entry(root,textvariable=password,show="*").pack(pady=10)
     
@@ -83,8 +67,8 @@ def login():
         """
         signup = Toplevel()
         createWindow(signup,"Signup","300x250")
-        username = tk.StringVar
-        password = tk.StringVar
+        username = StringVar()
+        password = StringVar()
         username_entry = Entry(signup,textvariable= username).pack(pady=10)
         password_entry = Entry(signup,textvariable=password,show="*").pack(pady=10)
         def makeUser():
@@ -93,7 +77,10 @@ def login():
             """
             
             pass
-        createButton(signup,"Sign Up",makeUser)
+        button = Button(signup,
+                        text="Sign Up",
+                        command=lambda:makeUser()
+                        ).pack(pady=20)
         signup.mainloop()
     
     
@@ -101,67 +88,114 @@ def login():
     def menuWindow():
         """Present the options for users after login and will create the branch from here
         """
-        root.withdraw()
+        root.destroy()
         menu = Tk()
         createWindow(menu,"Menu","350x300")
 
         def changeWindow(show,hide):
             show.deiconify()
             hide.withdraw()
-        # Anchor pop 
-        def insertData():
-            newData = Toplevel()
-            
-            # data for storage
-            
-            # data entry fields
-            
-            # valuate data entry
-            
-            # add data to database and create popup
-            createPopup("Upload Complete","The data is saved to the database.")
-            pass
-            
-        
+ 
             # house_price = np.random.normal(2000,25000, 5000)
             # plt.hist(house_price,50)
             # plt.show()
         #ANCHOR creating 3 DES including chat box
         def DESWindow(datatype):
             DES = Toplevel()
-            createWindow(DES,"Data Display Screen","600x600")
+            createWindow(DES,"Data Display Screen","800x600")
             def update():
                 # Take new data into from spreadsheet 
                 createPopup("Update complete", "The data is is refreshed.")
+                DES.withdraw()
                 pass
+            def insertData():
+                newData = Toplevel()
+            
+                # data for storage
+                
+                # data entry fields
+                
+                # valuate data entry
+                
+                # add data to database and create popup
+                createPopup("Upload Complete","The data is saved to the database.")
+                DES.withdraw()
+                pass
+            img = ImageTk.PhotoImage(Image.open(f"./data/{datatype}.png"))
+            panel = Label(DES, image = img,width =300,heigh = 500)
+            panel.pack(side = LEFT)
+            
             # Storing new data
-            input,chatLog = tk.StringVar()
+            input = StringVar()
+            chatLog = StringVar()
             #chat box creating and function
-            chatBox = tk.Label(DES,
-                                background='light gray', width=20,
+            chatLabel = Label(DES,text = "Chat box").pack(side=LEFT)
+            chatBox = Label(DES,
+                                background='light gray', width=20,height =30,
                                 textvariable=chatLog,
-                                anchor="w").pack()
-            entry = Entry(DES,textvariable=input).pack()
+                                compound = LEFT,
+                                anchor="w").pack(side=LEFT)
+            inputLabel = Label(DES,text = "Input").pack(side=LEFT)
+            entry = Entry(DES,textvariable=input).pack(side=LEFT)
             def chat():
                 pass
             #Other functions
+            #data interaction
+            def zoom():
+                pass
+            def pan():
+                pass
             #Creating buttons for DES
-            createButton(DES,"Send",chat)
-            createButton(DES,"Insert Data",insertData)
-            createButton(DES,"Insert Datay",insertData)
-            createButton(DES,"Update Data",update)
-        
-        createButton(menu,"Insert Data",insertData)
-        Location_DES = Button(menu,text="Location",command = lambda:DESWindow("location")).pack(pady=10)
-        Gender_DES = Button(menu,text="Gender",command = lambda:DESWindow("Gender")).pack(pady=10)
-        Feature_DES = Button(menu,text="Feature",command = lambda:DESWindow("Feature")).pack(pady=10)
-        Signout = Button(menu,text="Sign out",command = lambda:changeWindow(root,menu)).pack(pady=10)
+            button = Button(DES,
+                            text="Zoom",
+                            command=lambda:zoom()
+                            ).pack(pady=20)
+            Location_DES = Button(DES,
+                                text="Pan",
+                                command = lambda:pan()
+                                ).pack(pady=10)
+            button = Button(DES,
+                            text="Send",
+                            command=lambda:chat()
+                            ).pack(pady=20)
+            button = Button(DES,
+                            text="Insert Data",
+                            command=lambda:insertData()
+                            ).pack(pady=20)
+            button = Button(DES,
+                            text="Update data",
+                            command=lambda:update()
+                            ).pack(pady=20)
+            
+            DES.mainloop()
+        #ANCHOR buttons for menu
+        Location_DES = Button(menu,
+                            text="Location",
+                            command = lambda:DESWindow("location")
+                            ).pack(pady=10)
+        Gender_DES = Button(menu,
+                            text="Gender",
+                            command = lambda:DESWindow("gender")
+                            ).pack(pady=10)
+        Feature_DES = Button(menu,
+                            text="Feature",
+                            command = lambda:DESWindow("feature")
+                            ).pack(pady=10)
+        Signout = Button(menu,
+                            text="Sign out",
+                            command = lambda:changeWindow(root,menu)
+                            ).pack(pady=10)
         menu.mainloop() 
-    # pack the 2 button
-    createButton(root,"Sign Up",signUpWindow)
-    createButton(root,"Login",menuWindow)
+    #ANCHOR Buttons for main window
+    button = Button(root,
+                    text="Sign Up",
+                    command=lambda:signUpWindow()
+                    ).pack(pady=20)
+    button = Button(root,
+                    text="Login",
+                    command=lambda:menuWindow()
+                    ).pack(pady=20)
     root.mainloop()
 
 if __name__ == "__main__":
-    root = Tk()
     login()
