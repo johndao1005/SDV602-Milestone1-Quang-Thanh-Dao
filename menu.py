@@ -93,22 +93,38 @@ def login():
         createWindow(menu,"Menu","350x300")
 
         def changeWindow(show,hide):
+            """Changing between windows by state which window is present and which one is hidden
+
+            Args:
+                show (variable): window want to show
+                hide (variable): window need to hide
+            """
             show.deiconify()
             hide.withdraw()
- 
+            
             # house_price = np.random.normal(2000,25000, 5000)
             # plt.hist(house_price,50)
             # plt.show()
         #ANCHOR creating 3 DES including chat box
         def DESWindow(datatype):
+            """Creating database  Screen Window     
+
+            Args:
+                datatype (string ): name of the data is present in for the current DES
+            """
             DES = Toplevel()
             createWindow(DES,"Data Display Screen","800x600")
+            label = Label(DES, text =f"White shark {datatype} data").pack()
             def update():
+                """Function to receive the new data and open popup message to confirm the action as well as close the current DES window
+                """
                 # Take new data into from spreadsheet 
                 createPopup("Update complete", "The data is is refreshed.")
                 DES.withdraw()
                 pass
             def insertData():
+                """Function to insert new data into
+                """
                 newData = Toplevel()
             
                 # data for storage
@@ -138,12 +154,18 @@ def login():
             inputLabel = Label(DES,text = "Input").pack(side=LEFT)
             entry = Entry(DES,textvariable=input).pack(side=LEFT)
             def chat():
+                """Place holder for function to update the chat log when there are new chat message
+                """
                 pass
             #Other functions
             #data interaction
             def zoom():
+                """Place holder for function to zoom into the data
+                """
                 pass
             def pan():
+                """Place holder for function to zoom into the data
+                """
                 pass
             #Creating buttons for DES
             button = Button(DES,
