@@ -12,7 +12,6 @@ Entry(): can be used to create text box
 from tkinter import *
 from PIL import ImageTk,Image
 from tkinter.messagebox import showinfo
-import menu, DES
 
 
 #create function to make window faster
@@ -92,6 +91,11 @@ def login():
         createWindow(menu,"Menu","400x350")
         #ANCHOR
         def DESControl(string):
+            """Control all DES at once in order to destroy, withdraw or open them all
+
+            Args:
+                string (string): action will be done on all DES ( destroy, withdraw or active)
+            """
             try:
                 if string == 'destroy':
                     DES1.destroy()
@@ -134,6 +138,8 @@ def login():
             # valuate data entry
             # add data to database and create popup
             def uploadData():
+                """Function to upload and check the data then close all the DES and return to menu
+                """
                 showinfo(
                     title ="Upload complete",
                     message = "The data has been updated, please reload all Data Explorer Screen"
@@ -174,7 +180,6 @@ def login():
         #ANCHOR creating 3 DES including chat box
         def DESWindow(windowname,datatype,nextDES,previousDES):
             """Creating database  Screen Window     
-
             Args:
                 datatype (string ): name of the data is present in for the current DES
             """
@@ -240,6 +245,11 @@ def login():
             DESWindow(DES3,'feature',DES1Window,DES2Window)
             
         def signout(para):
+            """Sign out function which destroy menu, DES and return to log in window
+
+            Args:
+                para (which window change to): choose the window will be display after destroy everything
+            """
             try:
                 DESControl('destroy')
             except TclError as error:
