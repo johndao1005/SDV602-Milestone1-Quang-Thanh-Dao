@@ -1,5 +1,12 @@
 """
-Import all the functions of tkinter library to support the process of building application
+Import all the functions of tkinter library to support the process of building application such as:
+Tk(): create main window
+Toplevel(): create child window
+Button(): create button with name and function or command attach
+destroy(): destroy the current window
+withdraw(): hide the current window
+Label(): can be used to display text, image
+Entry(): can be used to create text box
 
 """
 from tkinter import *
@@ -174,7 +181,7 @@ def login():
             windowname = Toplevel()
             createWindow(windowname, f"White shark {datatype} data","800x600")
             
-            img = ImageTk.PhotoImage(Image.open(datatype+".png"))
+            img = ImageTk.PhotoImage(Image.open(f"./data/{datatype}.png"))
             panel = Label(master = windowname, image = img ,width =200,heigh = 500)
             panel.pack(side=LEFT)
             
