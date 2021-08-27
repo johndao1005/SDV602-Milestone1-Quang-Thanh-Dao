@@ -95,9 +95,10 @@ def login():
                     DES2.withdraw()
                     DES3.withdraw()
                 elif string == 'active':
-                    DES1Window()
-                    DES2Window()
-                    DES3Window()
+                    # DES1Window()
+                    # DES2Window()
+                    # DES3Window()
+                    pass
             except:
                 pass 
         def insertData():
@@ -130,6 +131,7 @@ def login():
                     title ="Upload complete",
                     message = "The data has been updated, please reload all Data Explorer Screen"
                 )
+                DESControl('withdraw')
                 insert.destroy()
                 
             upload_Btn = Button(insert, text="Upload Data",command= lambda:uploadData()).pack(pady=5)
@@ -188,8 +190,6 @@ def login():
                                 anchor="w").pack(side=LEFT)
             inputLabel = Label(windowname,text = "Input").pack(side=LEFT)
             entry = Entry(windowname,textvariable=input).pack(side=LEFT)
-            
-            
             #ANCHOR Buttons for DES
             button = Button(windowname,
                             text="Next",
@@ -223,7 +223,8 @@ def login():
                             text="Update data",
                             command=lambda:update()
                             ).pack(pady=5)
-        
+            windowname.mainloop()
+            
         def DES1Window():
             DESWindow(DES1,'location',DES2Window,DES3Window)
         def DES2Window():
