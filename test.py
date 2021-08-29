@@ -1,148 +1,215 @@
-from tkinter import *
-from tkinter import ttk
-import  tkinter.messagebox
-from PIL import ImageTk,Image
-from tkinter.messagebox import showinfo
+# # import tkinter as tk
+# # import tkinter.scrolledtext as tkst
+# # from tkinter import ttk
+# # import logging
+# # import time
 
-# import datetime
+# # def popupmsg(msg):
+# #     popup = tk.Toplevel()
+# #     popup.wm_title("!")
+# #     label = ttk.Label(popup, text=msg)
+# #     label.pack(side="top", fill="x", pady=10)
+# #     b1 = ttk.Button(popup, text="Okay", command=popup.destroy)
+# #     b1.pack()
+# #     popup.mainloop()
 
+# # def test1():
+# #     root.logger.error("Test")
+
+# # def toggle(self):
+# #     t_btn = self.t_btn
+# #     if t_btn.config('text')[-1] == 'Start':
+# #         t_btn.config(text='Stop')
+
+# #         def startloop():
+# #             if root.flag:
+# #                 now = time.strftime("%c")
+# #                 root.logger.error(now)
+# #                 root.after(30000, startloop)
+# #             else:
+# #                 root.flag = True
+# #                 return
+# #         startloop()
+# #     else:
+# #         t_btn.config(text='Start')
+# #         root.logger.error("Loop stopped")
+# #         root.flag = False
+
+
+# # class TextHandler(logging.Handler):
+
+# #     def __init__(self, text):
+# #         # run the regular Handler __init__
+# #         logging.Handler.__init__(self)
+# #         # Store a reference to the Text it will log to
+# #         self.text = text
+
+# #     def emit(self, record):
+# #         msg = self.format(record)
+
+# #         def append():
+# #             self.text.configure(state='normal')
+# #             self.text.insert(tk.END, msg + '\n')
+# #             self.text.configure(state='disabled')
+# #             # Autoscroll to the bottom
+# #             self.text.yview(tk.END)
+
+# #         # This is necessary because we can't modify the Text from other threads
+# #         self.text.after(0, append)
+
+# #     def create(self):
+# #         # Create textLogger
+# #         topframe = tk.Frame(root)
+# #         topframe.pack(side=tk.TOP)
+
+# #         st = tkst.ScrolledText(topframe, bg="#00A09E", fg="white", state='disabled')
+# #         st.configure(font='TkFixedFont')
+
+# #         st.pack()
+
+# #         self.text_handler = TextHandler(st)
+
+# #         # Add the handler to logger
+# #         root.logger = logging.getLogger()
+# #         root.logger.addHandler(self.text_handler)
+
+# #     def stop(self):
+# #         root.flag = False
+
+# #     def start(self):
+# #         if root.flag:
+# #             root.logger.error("error")
+# #             root.after(1000, self.start)
+# #         else:
+# #             root.logger.error("Loop stopped")
+# #             root.flag = True
+# #             return
+
+# #     def loop(self):
+# #         self.start()
+
+# # class HomePage(tk.Frame):
+
+# #     def __init__(self, parent):
+# #         tk.Frame.__init__(self, parent)
+
+# #         container = tk.Frame(self)
+# #         container.pack(side="top", fill="both", expand=True)
+# #         container.grid_rowconfigure(0, weight=1)
+# #         container.grid_columnconfigure(0, weight=1)
+
+# #         self.menubar = tk.Menu(container)
+# #         self.check = False ### new
+
+# #         # Create taskbar/menu
+# #         file = tk.Menu(self.menubar)
+# #         file.add_command(label="Run", command=lambda: test1())
+# #         file.add_command(label="Stop", command=lambda: test1())
+# #         file.add_separator()
+# #         file.add_command(label="Settings", command=self.call_settings) #### new, changed command to run the function
+# #         file.add_separator()
+# #         file.add_command(label="Quit", command=quit)
+# #         self.menubar.add_cascade(label="File", menu=file)
+
+# #         self.master.config(menu=self.menubar)
+
+# #         #logger and main loop
+# #         th = TextHandler("none")
+# #         th.create()
+# #         root.flag = True
+# #         root.logger.error("Welcome to ShiptScraper!")
+
+# #         bottomframe = tk.Frame(self)
+# #         bottomframe.pack(side=tk.BOTTOM)
+
+# #         topframe = tk.Frame(self)
+# #         topframe.pack(side=tk.TOP)
+
+# #         self.t_btn = tk.Button(text="Start", highlightbackground="#56B426", command=lambda: toggle(self))
+# #         self.t_btn.pack(pady=5)
+# #         self.exitButton = tk.Button(text="Exit", highlightbackground="#56B426", command=quit)
+# #         self.exitButton.pack()
+# #         root.setting = False
+
+# #     ########## changed
+# #     def call_settings(self):
+# #         if self.check == False:
+# #             self.settings_window()
+# #     ##########
+
+# #     def settings_window(self):
+# #         self.check = True
+# #         self.settingswin = tk.Toplevel()
+# #         self.settingswin.wm_title("Settings") 
+# #         self.settingswin.protocol('WM_DELETE_WINDOW', self.close_Toplevel) ##### new
+# #         exitButton = tk.Button(self.settingswin, text="Exit", highlightbackground="#56B426", command=self.close_Toplevel)
+# #         exitButton.pack()
+
+# #     def close_Toplevel(self):
+# #         # New, this runs when the Toplevel window closes, either by button or else
+# #         self.check = False
+# #         self.settingswin.destroy()
+
+# # class Help(tk.Toplevel):
+
+# #     def __init__(self, parent):
+# #         tk.Toplevel.__init__(self, parent)
+# #         self.wm_title("Help")
+# #         exitButton = tk.Button(text="Exit", highlightbackground="#56B426", command=quit)
+# #         exitButton.pack()
+
+# # if __name__ == "__main__":
+# #     root = tk.Tk()
+# #     root.configure(background="#56B426")
+# #     root.wm_title("ShiptScraper")
+# #     app = HomePage(root)
+# #     app.mainloop()
+    
 # import tkinter as tk
+# from tkinter import ttk
 
 
-# class AlertDialog:
-#     def __init__(self):
-#         self.invalidDiag = tk.Toplevel()
-#         invalidInput = tk.Label(master=self.invalidDiag,
-#                                 text='Error: Invalid Input').grid(row=1, column=1)
-#         closeButton = tk.Button(master=self.invalidDiag,
-#                                 text='Close',
-#                                 command=self.invalidDiag.destroy).grid(row=2, column=1)
+# # root window
+# root = tk.Tk()
+# root.geometry('300x200')
+# root.resizable(False, False)
+# root.title('LabelFrame Demo')
 
-#     def start(self):
-#         # self.invalidDiag.grab_set() #takes control over the dialog (makes it active)
-#         self.invalidDiag.wait_window()
+# # label frame
+# lf = ttk.LabelFrame(
+#     root,
+#     text='Alignment')
 
+# lf.grid(column=0, row=0, padx=20, pady=20)
 
-# class  QuitDialog():
+# alignment = tk.StringVar()
 
-#     def __init__(self, ):
-#         self.quitDialog = tk.Toplevel()
-#         warnMessage = tk.Label(master=self.quitDialog,
-#                                 text='Are you sure that you want to quit? ').grid(row=1, column=1)
-#         cancelButton = tk.Button(master= self.quitDialog ,
-#                                 text='Cancel',
-#                                 command = self.quitALL).grid(row=2, column=1)
+# # left radio button
+# left_radio = ttk.Radiobutton(
+#     lf,
+#     text='Left',
+#     value='left',
+#     variable=alignment
+# ).grid(column=0, row=0, ipadx=10, ipady=10)
 
-#     def start(self):
-#         # self.invalidDiag.grab_set() #takes control over the dialog (makes it active)
-#         self.quitDialog.wait_window()
+# # center radio button
+# center_radio = ttk.Radiobutton(
+#     lf,
+#     text='Center',
+#     value='center',
+#     variable=alignment
+# ).grid(column=1, row=0, ipadx=10, ipady=10)
 
-#     def quitALL(self):
+# # right alignment radiobutton
+# right_radio = ttk.Radiobutton(
+#     lf,
+#     text='Right',
+#     value='right',
+#     variable=alignment
+# ).grid(column=2, row=0, ipadx=10, ipady=10)
 
-#         self.quitDialog.destroy()
-#         tc =TimeConverter()
-#         tc.destroyit()
+# root.mainloop()
+import test2
+test2.window.checkUser(test2.window,"nice")
+print(test2.window().user)
 
-
-
-# class TimeConverter:
-#     def __init__(self):
-#         self.mainWindow = tk.Tk()
-#         self.mainWindow.title("Seconds Converter")
-#         self.results = tk.StringVar()
-#         self.inputSecs = tk.StringVar()
-#         secLabel = tk.Label(master=self.mainWindow,
-#                             text="Seconds:").grid(row=0, sticky="W")
-#         resultLabel = tk.Label(master=self.mainWindow,
-#                                text="Converted Time:\n(H:M:S)").grid(row=1, sticky="W")
-#         calcResults = tk.Label(master=self.mainWindow,
-#                                background='light gray', width=20,
-#                                textvariable=self.results,
-#                                anchor="w").grid(row=1, column=1)
-#         secEntry = tk.Entry(master=self.mainWindow,
-#                             width=24,
-#                             textvariable=self.inputSecs).grid(row=0, column=1)
-
-#         calcButton = tk.Button(master=self.mainWindow,
-#                                text='Calculate',
-#                                command=self.SecondsToHours).grid(row=2,
-#                                                                  column=0, sticky="w")
-#         # quitButton = tk.Button(master=self.mainWindow,
-#         #                        text='Quit',
-#         #                        command=self.mainWindow.destroy).grid(row=2, column=1, sticky="E")
-#         quitButton = tk.Button(master=self.mainWindow,
-#                                text='Quit',
-#                                command=self.showQuitDialog).grid(row=3, column=1, sticky="E")
-
-#     def invalidInputEntered(self):
-#         errorDiag = AlertDialog()
-#         errorDiag.start()
-
-#     def showQuitDialog(self):
-#         quitdialog = QuitDialog()
-#         quitdialog.start()
-
-
-#     def startDisplay(self) -> None:
-#         self.mainWindow.mainloop()
-
-#     def destroyit(self):
-#         self.mainWindow.destroy()
-
-#     def SecondsToHours(self):
-#         try:
-#             inputseconds = int(self.inputSecs.get())
-#             seconds = int(inputseconds % 60)
-#             minutes = int(((inputseconds - seconds) / 60) % 60)
-#             hours = int((((inputseconds - seconds) / 60) - minutes) / 60)
-#             tempResults = str(hours) + ':' + str(minutes) + ':' + str(seconds)
-#             self.results.set(tempResults)
-#             return
-
-#         except ValueError:
-#             self.invalidInputEntered()
-#             #self.showQuitDialog()
-
-
-# if __name__ == '__main__':
-#     TimeConverter().startDisplay()
-
-import tkinter as tk
-from tkinter import ttk
-
-
-class Window(tk.Toplevel):
-    def __init__(self, parent):
-        super().__init__(parent)
-
-        self.geometry('300x100')
-        self.title('Toplevel Window')
-
-        ttk.Button(self,
-                text='Close',
-                command=self.destroy).pack(expand=True)
-
-
-class App(tk.Tk):
-    def __init__(self):
-        super().__init__()
-        img = ImageTk.PhotoImage(Image.open("gender.png"))
-        panel = Label(self, image = img)
-        panel.pack(side = "bottom", fill = "both", expand = "yes")
-        panel.image =img
-        self.geometry('500x500')
-        self.title('Main Window')
-
-        # place a button on the root window
-        ttk.Button(self,
-                text='Open a window',
-                command=self.open_window).pack(expand=True)
-
-    def open_window(self):
-        window = Window(self)
-        window.grab_set()
-
-
-if __name__ == "__main__":
-    app = App()
-    app.mainloop()
