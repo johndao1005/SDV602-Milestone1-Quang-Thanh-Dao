@@ -15,29 +15,29 @@ from tkinter.messagebox import showinfo
 from tkinter import ttk
 import setup,menu
 
-def window(windowname, datatype, next, prev):
+def window(windowname, datatype, next, prev,positionX ,positionY):
         windowname = Toplevel()
         windowname.title(setup.app_name)
         windowname.iconbitmap(setup.icon)
         option1 = setup.pad20
         option2 = setup.pad10
-        label = Label(windowname, text=f"White shark {datatype} data").grid(column=0,row=0,**option1)
-        windowname.geometry("800x600")
+        label = Label(windowname, text=f"White shark {datatype} data").grid(column=0,row=0,**option1,columnspan=3)
+        windowname.geometry(f"800x600+{positionX}+{positionY}")
         
         # ANCHOR data display
         frame = ttk.Frame(windowname)
-        frame.grid(column=0,row=1,**option1)
+        frame.grid(column=0,row=1,**option1,columnspan=2)
         img = ImageTk.PhotoImage(Image.open(f"./src/{datatype}.png"))
-        panel = Label(frame, text="Hello").grid(column=0,row=1,**option1)
+        panel = Label(frame, text="Hello",width = 50).grid(column=0,row=1,**option1)
         # Storing new data
         input = StringVar()
         chatLog = StringVar()
         # chat box creating and function
         frame1 = ttk.LabelFrame(windowname,text="Chat box",borderwidth=0)
-        frame1.grid(column=1,row=1,**option1)
+        frame1.grid(column=2,row=1,**option1,)
         chatBox = ttk.Label(frame1,
                         background='light gray',
-                        textvariable=chatLog
+                        textvariable=chatLog,width = 40
                         ).grid(column=1,row=2,**option1,columnspan=2)
         entry = ttk.Entry(frame1, textvariable=input).grid(column=1,row=3,**option1)
         button = ttk.Button(frame1,
@@ -46,7 +46,7 @@ def window(windowname, datatype, next, prev):
                         ).grid(column=2,row=3,**option1)
         # ANCHOR Buttons for windowname
         frame2 = ttk.LabelFrame(windowname,text="Chat box",borderwidth=0)
-        frame2.grid(column=1,row=4,**option1,sticky=NSEW)
+        frame2.grid(column=2,row=4,**option1,sticky=NSEW)
         button = ttk.Button(frame2,
                         text="Next",
                         command=lambda: changeWindow(windowname,next)
@@ -72,10 +72,10 @@ def window(windowname, datatype, next, prev):
         #                 text="upload Data",
         #                 command=lambda: chat()
         #                 ).grid(column=0,row=0,**option1)
-        button = Button(windowname,
+        button = ttk.Button(windowname,
                         text="Quit",
                         command=lambda: close_DES()
-                        ).grid(column=0,row=8,**option1,sticky=SE)
+                        ).grid(column=2,row=8,**option1,sticky=SE)
         def chat():
             """Place holder for function to update the chat log when there are new chat message
             """

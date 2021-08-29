@@ -27,9 +27,8 @@ class App(Tk):
         option2 = setup.pad5
         self.resizable(0, 0)
         label = Label(self, text="Login").grid(column=0,row=0,sticky=N,**options,columnspan=3)
-        self.geometry("280x250")
+        self.geometry("280x250+200+300")
         self.check = False
-    
         # ANCHOR data input
         lf = Frame(
         self,
@@ -40,7 +39,6 @@ class App(Tk):
         username_entry = Entry(lf, textvariable=username).grid(column=1,row=1,**options,columnspan=2)
         label = ttk.Label(lf, text="Password").grid(column=0,row=2,**options,ipadx=5, ipady=5)
         password_entry = Entry(lf, textvariable=password, show="*").grid(column=1,row=2,**options,columnspan=2)
-        
         # ANCHOR Buttons for main window
         button_frame = ttk.Frame(
         self,
@@ -57,7 +55,7 @@ class App(Tk):
                           text="Quit",
                           command=lambda: self.destroy()
                           ).grid(column=2,row=4,**options)
-        
+
     def call_signup(self):
         """The function check for any instance of signup and only create a sign up window if there is none
         """
@@ -73,7 +71,7 @@ class App(Tk):
             self.signup.iconbitmap(setup.icon)
             options = {'padx': 10, 'pady': 5}
             label = Label(self.signup, text="Sign up").grid(column=0,row=0,**options,columnspan=2)
-            self.signup.geometry("310x360")
+            self.signup.geometry("310x360+100+100")
             self.signup.protocol("WM_DELETE_WINDOW",self.closeSignup)
             #Create placeholder to store data
             username = StringVar()
@@ -133,9 +131,6 @@ class App(Tk):
         self.destroy()
         menu.window(name)
 
-def create_menu():
+if __name__ == "__main__":
     app = App()
     app.mainloop()  
-    print(type(app))
-if __name__ == "__main__":
-    create_menu()

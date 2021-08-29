@@ -32,7 +32,7 @@ class window(Tk):
         option1 = setup.pad10
         option2 = setup.pad5
         label = Label(self, text="Application Menu").grid(column=0,row=0,**option3)
-        self.geometry("330x380")
+        self.geometry("330x380+50+50")
         self.check = False
         # ANCHOR first label frame
         label = Label(self, text=f"Welcome {self.user},\n Please select one data explorer screen from below").grid(column=0,row=1,**option2)
@@ -78,26 +78,17 @@ class window(Tk):
     
     #ANCHOR creating 3 DES
     def DES1_window(self):
-        if "location" not in des_check:
-            print(des_check)
-            des_check.add("location")
-            DES.window(self.DES1,'location',self.DES2_window,self.DES3_window)
-            print(des_check)
+        DES.window(self.DES1,'location',self.DES2_window,self.DES3_window,500,100)
+            
     def DES2_window(self):
-        if "gender" not in des_check:
-            des_check.add("gender")
-            DES.window(self.DES2,'gender',self.DES3_window,self.DES1_window)
-            print(des_check)
+        DES.window(self.DES2,'gender',self.DES3_window,self.DES1_window,500,200)
+            
     def DES3_window(self):
-        if "feature" not in des_check:
-            des_check.add("feature")
-            DES.window(self.DES3,'feature',self.DES1_window,self.DES2_window)
-            print(des_check)
+        DES.window(self.DES3,'feature',self.DES1_window,self.DES2_window,500,000)
+            
     def DES_window(self,datatype):
-        if datatype not in des_check:
-            des_check.add(datatype)
-            DES.window(self.DES1,datatype,self.DES2_window,self.DES3_window)
-        pass
+        DES.window(self.DES1,datatype,self.DES2_window,self.DES3_window)
+        
     
     def upload_window(self,user="user"):
         self.upload = Toplevel()
@@ -150,9 +141,6 @@ class window(Tk):
     def upload_data(self):
         pass
     
-    def close_DES(self,data):
-        #des_check.discard(data)
-        print("hi")
     def close_upload(self):
         self.check = False
         self.upload.destroy()
@@ -163,7 +151,7 @@ class window(Tk):
         """
         self.destroy()
         application.App()
-des_check =set()
+
 if __name__ == "__main__":
     new_menu = window()
     new_menu.mainloop()
