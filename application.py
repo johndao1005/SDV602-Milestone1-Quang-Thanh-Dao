@@ -12,7 +12,7 @@ Entry(): can be used to create text box
 from tkinter import *
 from PIL import ImageTk,Image
 from tkinter.messagebox import showinfo
-
+from tkinter import ttk
 
 #create function to make window faster
 def createWindow(windowName,windowLabel,windowsize):
@@ -178,70 +178,108 @@ def login():
             next()
             
         #ANCHOR creating 3 DES including chat box
-        def DESWindow(windowname,datatype,nextDES,previousDES):
+        def DESWindow(windowname,datatype,nextDES,prevDES):
             """Creating database  Screen Window     
             Args:
                 datatype (string ): name of the data is present in for the current DES
             """
             windowname = Toplevel()
-            createWindow(windowname, f"White shark {datatype} data","800x600")
-            
+            windowname.title("White shark tracking")
+            windowname.iconbitmap()
+            windowname.geometry("900x1000")
+            option1 ={"pady":10,"padx":10}
+            label = Label(windowname, text=f"White shark {datatype} data").grid(column=0,row=0,**option1,columnspan=3)
             img = ImageTk.PhotoImage(Image.open(f"./data/{datatype}.png"))
-            panel = Label(master = windowname, image = img ,width =200,heigh = 500)
-            panel.pack(side=LEFT)
-            
+            frame = ttk.Frame(windowname)
+            frame.grid(column=0,row=2,**option1,columnspan=2,rowspan=2)
+            panel = Label(frame, image = img,width = 500).grid(column=0,row=1,**option1,columnspan=2,rowspan=2)
             # Storing new data
             input = StringVar()
             chatLog = StringVar()
-            #chat box creating and function
-            chatLabel = Label(windowname,text = "Chat box").pack(side=LEFT)
-            chatBox = Label(windowname,
-                                background='light gray', width=20,height =30,
-                                textvariable=chatLog,
-                                compound = LEFT,
-                                anchor="w").pack(side=LEFT)
-            inputLabel = Label(windowname,text = "Input").pack(side=LEFT)
-            entry = Entry(windowname,textvariable=input).pack(side=LEFT)
-            #ANCHOR Buttons for DES
-            button = Button(windowname,
-                            text="Next",
-                            command=lambda:changeDES(windowname,nextDES)
-                            ).pack(pady=5)
-            button = Button(windowname,
-                            text="Previous",
-                            command=lambda:changeDES(windowname,previousDES)
-                            ).pack(pady=5)
-            button = Button(windowname,
-                            text="Zoom +",
-                            command=lambda:zoom()
-                            ).pack(pady=5)
-            button = Button(windowname,
-                            text="Zoom -",
-                            command=lambda:zoom()
-                            ).pack(pady=5)
-            Location_DES = Button(windowname,
-                                text="Pan",
-                                command = lambda:pan()
-                                ).pack(pady=5)
-            button = Button(windowname,
+            # chat box creating and function
+            frame1 = ttk.LabelFrame(windowname,text="Chat box",borderwidth=0)
+            frame1.grid(column=2,row=2,**option1,)
+            chatBox = ttk.Label(frame1,
+                            background='light gray',
+                            textvariable=chatLog,width = 40
+                            ).grid(column=1,row=2,**option1,columnspan=2)
+            entry = ttk.Entry(frame1, textvariable=input).grid(column=1,row=3,**option1)
+            button = ttk.Button(frame1,
                             text="Send",
-                            command=lambda:chat()
-                            ).pack(pady=5, side =['left'])
-            button = Button(windowname,
-                            text="Insert Data",
-                            command=lambda:insertData()
-                            ).pack(pady=5)
-            button = Button(windowname,
-                            text="Update data",
-                            command=lambda:update()
-                            ).pack(pady=5)
-            windowname.mainloop()
+                            command=lambda: chat()
+                            ).grid(column=2,row=3,**option1)
+            # ANCHOR Buttons for windowname
+            frame2 = ttk.LabelFrame(windowname,text="Chat box",borderwidth=0)
+            frame2.grid(column=2,row=3,**option1,sticky=NSEW)
+            button = ttk.Button(frame2,
+                            text="Next",
+                            command=lambda: changeWindow(windowname,nextDES)
+                            ).grid(column=0,row=5,**option1)
+            button = ttk.Button(frame2,
+                            text="Previous",
+                            command=lambda: changeWindow(windowname,prevDES)
+                            ).grid(column=1,row=5,**option1)
+            button = ttk.Button(frame2,
+                            text="Zoom +",
+                            command=lambda: zoom()
+                            ).grid(column=1,row=6,**option1)
+            button = ttk.Button(frame2,
+                            text="Zoom -",
+                            command=lambda: zoom()
+                            ).grid(column=0,row=7,**option1)
+            Location_windowname = ttk.Button(frame2,
+                                text="Pan",
+                                command=lambda: pan()
+                                ).grid(column=1,row=7,**option1)
             
+            # button = Button(windowname,
+            #                 text="upload Data",
+            #                 command=lambda: chat()
+            #                 ).grid(column=0,row=0,**option1)
+            button = ttk.Button(windowname,
+                            text="Quit",
+                            command=lambda: close_DES()
+                            ).grid(column=2,row=8,**option1,sticky=SE)
+            def chat():
+                """Place holder for function to update the chat log when there are new chat message
+                """
+                pass
+            
+            def zoom():
+                """Place holder for function to zoom into the data
+                """
+                pass
+            def pan():
+                """Place holder for function to zoom into the data
+                """
+                pass
+
+            def changeWindow(current,new):
+                """State the current window and next window
+
+                Args:
+                    current (variable): name of the current window to be closed_data
+                    new (fucntion): name of the function to create the next window
+                """
+                current.destroy()
+                new()
+            def close_DES():
+                """Function handle to destroy the window
+                """
+                windowname.destroy()
+            windowname.protocol("WM_DELETE_WINDOW",close_DES)
+            windowname.mainloop()
         def DES1Window():
+            """Function for create first DES which present the locaiton information
+            """
             DESWindow(DES1,'location',DES2Window,DES3Window)
         def DES2Window():
+            """Function for create seoncd DES which present the locaiton information
+            """
             DESWindow(DES2,'gender',DES3Window,DES1Window)
         def DES3Window():
+            """Function for create third DES which present the locaiton information
+            """
             DESWindow(DES3,'feature',DES1Window,DES2Window)
             
         def signout(para):
