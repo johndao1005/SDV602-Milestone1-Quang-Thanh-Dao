@@ -127,7 +127,6 @@ class App(Tk):
             name (string): username from user input
             pw (string): password from user input
         """
-        
         self.destroy()
         menu.window(name)
 
