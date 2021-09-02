@@ -158,7 +158,6 @@ def login():
                 title = "Update data",
                 message = "The data has been updated, please close all DES"
             )
-            
         def chat():
             """Place holder for function to update the chat log when there are new chat message
             """
